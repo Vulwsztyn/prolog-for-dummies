@@ -43,4 +43,7 @@ merge_sort(List,Sorted):-
     halve(List,L1,L2),     
     merge_sort(L1,Sorted1),
     merge_sort(L2,Sorted2),  
-	merge(Sorted1,Sorted2,Sorted). 
+    merge(Sorted1,Sorted2,Sorted). 
+    
+test_merge_sort(X) :- merge_sort([ 3, 18,  6,  5,  2,  8, 15, 13, 14,  0, 12,  7,  9, 10, 19, 16, 11, 1, 4, 17],X).
+% X = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
