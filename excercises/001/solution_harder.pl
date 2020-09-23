@@ -71,6 +71,20 @@ abs_test(X,Y) :- abs(5,X), abs(-3,Y).
 % X = 5,
 % Y = 3
 
+% min_by_key(+List, -MinByKey)
+% assuming the list elements are arrays of length 2 containing [Value,Key] it returns the element for the minimal key
+% could be called min_by_second_element
+my_min_by_key([X],X).
+my_min_by_key([[V,K]|T],[V,K]) :- my_min_by_key(T,[_,TKey]), TKey > K, !.
+my_min_by_key([_|T],Min) :-  my_min_by_key(T,Min).
+
+% I needed to add my because min_by_key exists in Prolog, debugging this was not rewarding
+
+% and I wrote my_min_by_key([X],X). as my_min_by_key([X],[X]). which would result in type error in any strongly typed language
+
+test_my_min_by_key(X) :- my_min_by_key([[a,3],[b,7],[c,2],[d,6]],X).
+% X = [c, 2]
+
 
 % sublist_to_key(+Sublist, +List, -Key)
 % calculates the differance between averages of the list and the complement of sublist
@@ -84,31 +98,23 @@ sublist_to_key(Sublist,List,Key) :-
 
 test_sublist_to_key(K) :- sublist_to_key([22, 27, 12, 25],[16, 18, 22, 27, 12, 25, 21],K).
 % K = 1.8095238095238102
-% 
-% min_by_key(+List, -MinByKey)
-% assuming the list elements are arrays of length 2 containing [Value,Key] it returns the element for the minimal key
-% could be called min_by_second_element
-my_min_by_key([X],_,X).
-my_min_by_key([H|T],List,H) :- 
-    my_min_by_key(T,List,TMin), 
-    sublist_to_key(TMin,List,TKey), 
-    sublist_to_key(H,List,HK), 
-    TKey > HK, 
-    !.
-my_min_by_key([_|T],List,TMin) :-  my_min_by_key(T,List,TMin), !.
 
-% I needed to add my because min_by_key exists in Prolog, debugging this was not rewarding
 
-% and I wrote my_min_by_key([X],X). as my_min_by_key([X],[X]). which would result in type error in any strongly typed language
+% map_sublists(+Sublists, +List, -Keys)
+% maps list of sublists to keys (view task.md)
+map_sublists([],_,[]) :- !.
+map_sublists([H|T],List,[[H,HK]|TK]) :- map_sublists(T,List,TK), sublist_to_key(H,List,HK).
 
-test_my_min_by_key(X) :- my_min_by_key([[16, 18, 22, 27], [18, 22, 27, 12], [22, 27, 12, 25], [27, 12, 25, 21]],[16, 18, 22, 27, 12, 25, 21],X).
-% X = [18, 22, 27, 12]
-
+test_map_sublists(Keys) :-
+    map_sublists([[16, 18, 22, 27],[18, 22, 27, 12],[22, 27, 12, 25],[27, 12, 25, 21]], [16, 18, 22, 27, 12, 25, 21], Keys).
+% Keys = [[[16, 18, 22, 27], 0.8095238095238102], [[18, 22, 27, 12], 0.5238095238095255], [[22, 27, 12, 25], 1.8095238095238102], [[27, 12, 25, 21], 1.4761904761904745]]
+                
 
 % solution to the task
 solution(List,N,Result) :- 
     make_sublists(List,N,Sublists), 
-    my_min_by_key(Sublists,List,Result).
+    map_sublists(Sublists,List,Pairs), 
+    my_min_by_key(Pairs,[Result,_]).
 
 test_solution(X) :- solution([16, 18, 22, 27, 12, 25, 21],4,X).
 % X = [18, 22, 27, 12]
