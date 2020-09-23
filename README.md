@@ -21,7 +21,7 @@ I highly recommend the `Program` option on https://swish.swi-prolog.org/ everyth
 * I try to explain the usage of `!` as best I can, but I am aware that I will not always be understandable.
     * In this tutorial it will alawys be the last thing in the body of a predicate. I know it can be used earlier for some magic, but remember the main purpose of the tutorial.
     * The rule of thumb is to use it if you want the compiler to stop at the predicate you use it in. see `my_last`  
-    * It is important because prolog predicates work a bit like generator functions in python (those with `yield`) and prolog know no `return` keyword
+    * It is important because prolog predicates work a bit like generator functions in python (those with `yield`) and prolog knows no `return` keyword
 * I will try to supply each and every predicate with a test that can be run from the prolog cmd with `test_my_predicate(X)` (of course the number of variables to be suppliled into the parentheses depends on the cardinality of predicate).
     * Apart from that you can also copy the test predicates body directly into console.
 
