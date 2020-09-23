@@ -26,8 +26,13 @@ I highly recommend the `Program` option on https://swish.swi-prolog.org/ everyth
     * Apart from that you can also copy the test predicates body directly into console.
 
 
+## FAQ
 
-## What does the `+`, `-`, or `?` before the predicate mean?
+### What does the `+`, `-`, or `?` before the argument of the predicate mean?
 https://stackoverflow.com/a/4220776
 
-I will almost never use the `?`.
+I will almost never use the `?`, although probably I should as my predicates could be used to check results as well, I might change this in the future.
+
+### Which sorting algorithm should I learn?
+
+Quick sort. Hands down the most simple (I know it's counterintuitive) and with least code overhead.
