@@ -118,8 +118,38 @@ test_my_prepend(X) :- my_prepend(a,[b,c],X).
 
 % my_concat(+List1,+List2,-ConcatenatedList)
 % concatenated 2 lists into the result (works just as append when 2 first parameters are supplied i.e. append([1],[2,3],X).)
+% ! is needed as [] matches L1 (i.e. L1 can be an empty list)
 my_concat([],X,X) :- !.
 my_concat(L1,L2,R) :- my_init_and_last(L1,Init,Last), my_concat(Init,[Last|L2],R).
 
 test_my_concat(X) :- my_concat([1,2,3],[4,5,6],X).
 % X = [1, 2, 3, 4, 5, 6]
+
+
+
+% my_sum(+List, -Sum)
+% returns sum of list
+% ! is not needed as [] doesn't match [H|T]
+my_sum([],0).
+my_sum([H|T],N) :- my_sum(T,N1), N is N1 + H.
+
+% it could be written wrong:
+% my_sum([H|T],N) :- N is N1 + H, my_sum(T,N1).
+% in N is N1 + H both N and N1 would be undefined (order of predicates in the body matters).
+
+test_my_sum(X) :- my_sum([12,25,5],X).
+% X = 42
+
+
+% my_product(+List, -Product)
+% returns product of list
+% ! is not needed as [] doesn't match [H|T]
+my_product([],1).
+my_product([H|T],N) :- my_product(T,N1), N is N1 * H.
+
+% it could be written wrong:
+% my_product([H|T],N) :- N is N1 * H, my_product(T,N1).
+% in N is N1 + H both N and N1 would be undefined (order of predicates in the body matters).
+
+test_my_product(X) :- my_product([2,3,7],X).
+% X = 42
