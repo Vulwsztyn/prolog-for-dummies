@@ -178,5 +178,19 @@ test_my_max(X) :- my_max([16, 18, 22, 27, 12, 25, 21],X).
 my_member(H,[H|_]) :- !.
 my_member(H,[_|T]) :- my_member(H,T).
 
-my_member_test_1('3 jest w liście') :- my_member(3,[4,32,33,1,3,5]).
-my_member_test_2('3 nie ma w liście') :- not(my_member(3,[4,32,33,1,5])).
+my_member_test_1('3 is in the list') :- my_member(3,[4,32,33,1,3,5]).
+my_member_test_2('3 is not in the list') :- not(my_member(3,[4,32,33,1,5])).
+
+
+% int_to_list_of_digits(+Int, -ListOfDigits)
+int_to_list_of_digits(0,[]) :- !.
+int_to_list_of_digits(N,Result) :- 
+    NMod10 is N mod 10, 
+    NBy10 is N // 10,
+    int_to_list_of_digits(NBy10,PartialResult),
+    append(PartialResult,[NMod10],Result).
+
+% notice [NMod10] in the append as append concatenates 2 lists and not adds "bare" elements to a list
+
+test_int_to_list_of_digits(X) :- int_to_list_of_digits(123,X).
+% X = [1, 2, 3]
