@@ -47,6 +47,7 @@ test_my_length(L) :- my_length(['Z','i','b','r','o',',',' ','T','y',' ','k'],L).
 % N's wouldn't be known to the compiler then and it would go forever searching for it
 % look at the Python version 
 
+
 % my_member(+Elem, +List)
 % predicate used to check whether the element is in the list
 % ! is needed because my_member(1,[1]) would return true form first line and then go on to the next to check
@@ -59,6 +60,7 @@ test_my_member2('2 is not in the list') :- not(my_member(2,[1,3])).
 
 % this function can be a one liner, but it uses `;` which can be treated as else, but is disallowed
 my_member_one_liner(X, [Y|T]) :- X = Y; my_member_one_liner(X, T).
+
 
 % my_last(+List, -LastElement)
 % returns last element of the list
@@ -78,23 +80,23 @@ my_last2([_,H|T],X) :- my_last([H|T],X).
 test_my_last2(L) :- my_last2(['Kaladin','','Aang'],L).
 % L = 'Aang'
 
+
 % my_init(+List, -Init)
 % returns all but last elements of the list
 % ! is needed as both a list of length one fits both [X] and [H|T] 
 my_init([_],[]) :- !.
 my_init([H|T],[H|InitT]) :- my_init(T,InitT).
 
-
 test_my_init(X) :- my_init([1,2,3,4,5,6,7],X).
 % X = [1, 2, 3, 4, 5, 6]
 
-%Once again it could be written without ! if +List in the second line wouldn't match a one element list
+% Once again it could be written without ! if +List in the second line wouldn't match a one element list
 my_init2([_],[]).
 my_init2([H,H1|T],[H|InitT]) :- my_init([H1|T],InitT).
 
-
 test_my_init2(X) :- my_init2([1,2,3,4,5,6,7],X).
 % X = [1, 2, 3, 4, 5, 6]
+
 
 % my_init_and_last(+List, -Init, -Last)
 % init and last combined
@@ -126,7 +128,6 @@ my_concat(L1,L2,R) :- my_init_and_last(L1,Init,Last), my_concat(Init,[Last|L2],R
 
 test_my_concat(X) :- my_concat([1,2,3],[4,5,6],X).
 % X = [1, 2, 3, 4, 5, 6]
-
 
 
 % my_sum(+List, -Sum)
