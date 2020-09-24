@@ -188,3 +188,12 @@ int_to_list_of_digits(N,Result) :-
 
 test_int_to_list_of_digits(X) :- int_to_list_of_digits(123,X).
 % X = [1, 2, 3]
+
+
+% my_range(+Start, +End, -Range)
+% returns all ints between start and end inclusively
+my_range(X,X,[X]) :- !.
+my_range(X,Y,[X|T]) :- X1 is X + 1, my_range(X1,Y,T).
+
+test_my_range(X) :- my_range(-9,5,X).
+% X = [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
