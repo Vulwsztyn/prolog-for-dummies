@@ -112,6 +112,8 @@ test_my_init_and_last(I,L) :- my_init_and_last([1,2,3],I,L).
 % no ! is needed as it is not a recursive predicate
 my_prepend(H,T,[H|T]).
 
+%notice it is the same as append([H],T,Result).
+
 test_my_prepend(X) :- my_prepend(a,[b,c],X).
 % X = [a, b, c] 
 
@@ -171,15 +173,6 @@ my_max([_|T],MT) :- my_max(T,MT).
 
 test_my_max(X) :- my_max([16, 18, 22, 27, 12, 25, 21],X).
 % X = 27
-
-
-% my_member(+Elem, +List)
-% this one is tricky, it doesn't "return" anything it just "is"
-my_member(H,[H|_]) :- !.
-my_member(H,[_|T]) :- my_member(H,T).
-
-my_member_test_1('3 is in the list') :- my_member(3,[4,32,33,1,3,5]).
-my_member_test_2('3 is not in the list') :- not(my_member(3,[4,32,33,1,5])).
 
 
 % int_to_list_of_digits(+Int, -ListOfDigits)
