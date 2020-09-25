@@ -57,17 +57,17 @@ test_my_average(A,B,C,D,E) :- my_average([16, 18, 22, 27, 12, 25, 21],A),
 % E = 21.25
 
 
-% abs(+Value, -AbsoluteValue)
+% my_abs(+Value, -AbsoluteValue)
 % you can guess
 % ! because X matches X and allows you to not write X < 0
-abs(X,X) :- X >= 0, !.
-abs(X,X2) :- X2 is -X.
+my_abs(X,X) :- X >= 0, !.
+my_abs(X,X2) :- X2 is -X.
 
 % version for people who do not remember that ! stops evaluation
-% abs(X,X) :- X >= 0, !.
-% abs(X,X2) :- X < 0, X2 is -X.
+% my_abs(X,X) :- X >= 0, !.
+% my_abs(X,X2) :- X < 0, X2 is -X.
 
-abs_test(X,Y) :- abs(5,X), abs(-3,Y).
+my_abs_test(X,Y) :- my_abs(5,X), my_abs(-3,Y).
 % X = 5,
 % Y = 3
 
@@ -79,7 +79,7 @@ sublist_to_key(Sublist,List,Key) :-
     my_average(List,LA), 
     my_average(Complement,CA), 
     D is LA - CA, 
-    abs(D, Key).
+    my_abs(D, Key).
     
 
 test_sublist_to_key(K) :- sublist_to_key([22, 27, 12, 25],[16, 18, 22, 27, 12, 25, 21],K).
