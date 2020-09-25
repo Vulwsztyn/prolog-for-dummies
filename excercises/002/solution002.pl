@@ -96,7 +96,7 @@ my_min_by_key([_|T],List,TMin) :-  my_min_by_key(T,List,TMin), !.
 % and I wrote my_min_by_key([X],X). as my_min_by_key([X],[X]). which would result in type error in any strongly typed language
 
 test_my_min_by_key(X) :- my_min_by_key([[16, 13], [18, 21], [22, 25], [27, 12]],[16, 18, 22, 27, 12, 25, 21],X).
-% X = [18, 22, 27, 12]
+% X = [27, 12]
 
 
 % solution to the task
@@ -105,5 +105,5 @@ solution(List,Result) :-
     my_min_by_key(Pairs,List,Result).
 
 test_solution(X) :- solution([16, 18, 22, 27, 12, 25, 21, 13],X).
-% X = [18, 22, 27, 12]
+% X = [27, 12]
 
