@@ -190,6 +190,20 @@ test_int_to_list_of_digits(X) :- int_to_list_of_digits(123,X).
 % X = [1, 2, 3]
 
 
+% list_of_digits_to_number(+ListOfDigits, -Number)
+list_of_digits_to_number([],0).
+list_of_digits_to_number(L,N) :-
+    append(Init,[Last],L),
+	list_of_digits_to_number(Init,N1),
+    N is N1 * 10 + Last,
+    !.  
+
+% it is much easier to do this way than [H|T] because you would need to check length of T to know what power of 10 to multiply H by
+
+test_list_of_digits_to_number(X) :- list_of_digits_to_number([6, 2, 3],X).
+% X = 623
+
+
 % my_range(+Start, +End, -Range)
 % returns all ints between start and end inclusively
 my_range(X,X,[X]) :- !.
@@ -197,3 +211,18 @@ my_range(X,Y,[X|T]) :- X1 is X + 1, my_range(X1,Y,T).
 
 test_my_range(X) :- my_range(-9,5,X).
 % X = [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
+
+
+% my_abs(+Value, -AbsoluteValue)
+% you can guess
+% ! because X matches X and allows you to not write X < 0
+my_abs(X,X) :- X >= 0, !.
+my_abs(X,X2) :- X2 is -X.
+
+% version for people who do not remember that ! stops evaluation
+% my_abs(X,X) :- X >= 0, !.
+% my_abs(X,X2) :- X < 0, X2 is -X.
+
+my_abs_test(X,Y) :- my_abs(5,X), my_abs(-3,Y).
+% X = 5,
+% Y = 3
