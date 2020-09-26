@@ -28,8 +28,9 @@ I highly recommend the `Program` option on https://swish.swi-prolog.org/ everyth
 
 ## FAQ
 
-### What does the `+`, `-`, or `?` before the argument of the predicate mean?
+### What does the `+`, `-`, or, `?` before the argument of the predicate mean?
 https://stackoverflow.com/a/4220776
+https://stackoverflow.com/a/40824709
 
 I will almost never use the `?`, although probably I should as my predicates could be used to check results as well, I might change this in the future.
 
