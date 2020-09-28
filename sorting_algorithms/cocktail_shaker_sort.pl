@@ -6,7 +6,7 @@
 swap_up([], []).
 swap_up([X], [X]).
 swap_up([Fst, Snd|T],[Snd|L]) :- Fst > Snd, swap_up([Fst|T], L), !.
-swap_up([Fst, Snd|T],[Fst|L]) :- Fst =< Snd, swap_up([Snd|T], L).
+swap_up([Fst, Snd|T],[Fst|L]) :- swap_up([Snd|T], L).
 
 test_swap_up(X) :- swap_up([4,3,2,1], X).
 % X = [3,2,1,4]
@@ -20,7 +20,7 @@ test_swap_up(X) :- swap_up([4,3,2,1], X).
 swap_down([], []).
 swap_down([X], [X]).
 swap_down([Fst, Snd|T],[Snd|L]) :- Fst < Snd, swap_down([Fst|T], L), !.
-swap_down([Fst, Snd|T],[Fst|L]) :- Fst >= Snd, swap_down([Snd|T], L).
+swap_down([Fst, Snd|T],[Fst|L]) :- swap_down([Snd|T], L).
 
 test_swap_down(X) :- swap_down([1,2,3,4], X).
 % X = [2,3,4,1]
