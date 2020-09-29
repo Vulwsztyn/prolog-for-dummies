@@ -1,0 +1,70 @@
+to_binary(0,[]) :- !.
+to_binary(N,Result) :- 
+    NMod10 is N mod 2, 
+    NBy10 is N // 2,
+    to_binary(NBy10,PartialResult),
+    append(PartialResult,[NMod10],Result).
+
+from_binary([],0) :- !.
+from_binary(L,N) :-
+    append(Init,[Last],L),
+    from_binary(Init,InitD),
+    N is InitD * 2 + Last,
+    !.
+
+sq([],[]).
+sq([X],[X]).
+sq([H1,H1|T],W) :-
+    sq([H1|T],W),
+    !.
+sq([H1,H2|T],[H1|W]) :-
+    sq([H2|T],W).
+
+% 110 -> 10
+% % 101 -> 101
+
+to_key(Number,Binary,Squashed,Key) :-
+    to_binary(Number,Binary),    
+    sq(Binary,Squashed),
+    from_binary(Squashed,Key).
+
+to_key(Number,Key) :- to_key(Number,_,_,Key).
+
+
+pivoting(_,[],[],[]).
+pivoting(P,[H|T],[H|M],W) :-
+    pivoting(P,T,M,W),
+    to_key(H,HKey),
+    to_key(P,PKey),
+    HKey =< PKey,
+
+    !.
+pivoting(P,[H|T],M,[H|W]) :-
+    pivoting(P,T,M,W).
+
+quick([],[]).
+quick([H|T],Sorted) :-
+    pivoting(H,T,M,W),
+    quick(M,MSorted),
+    quick(W,WSorted),
+    append(MSorted,[H|WSorted],Sorted),
+    !.
+
+
+    % [1,2,3,4,5,6,7,8,9] [1,3,5,7,9]
+
+% remove_one(+List: Array<T>, +Elem: T, -ListWithoutElem: Array<T>)
+remove_one([],_,[]).
+remove_one([H|T],H,Filtered) :-
+    remove_one(T,H,Filtered),
+    !.
+remove_one([H|T],E,[H|Filtered]) :-
+    H =\= E,
+    remove_one(T,E,Filtered).
+
+% remove_list(+List: Array<T>, +List2: Array<T>, -ListWithoutList2: Array<T>)
+remove_list(L,[],L).
+remove_list(L,[H|T],LW) :-
+    remove_one(L,H,LwithoutH),
+    remove_list(LwithoutH,T,LW),
+    !.
