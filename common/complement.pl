@@ -7,7 +7,6 @@ remove_one([H|T],E,[H|Filtered]) :-
     H =\= E,
     remove_one(T,E,Filtered).
 
-
 test_remove_one(X) :- remove_one([6,2,6,1,6,3,6,7],6,X).
 % X = [2, 1, 3, 7]
 

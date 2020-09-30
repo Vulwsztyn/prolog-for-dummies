@@ -1,4 +1,4 @@
-% to_binary(+Int, -ListOfBits)
+% to_binary(+Int: Int, -ListOfBits: [Int])
 to_binary(0,[]) :- !.
 to_binary(N,Result) :- 
     NMod10 is N mod 2, 

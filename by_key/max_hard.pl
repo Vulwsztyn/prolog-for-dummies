@@ -22,7 +22,7 @@ test_map_to_pairs(X) :- map_to_pairs([ 3, -18, 6, -5, 2, -8, 15, -13, 14, -0, 12
 
 % extract_key needs to follow the signature
 % extract_key(+Elem: [a,b], -KeyFromElem: b) 
-%type a and type b can be the same
+% type a and type b can be the same
 extract_key([_,K],K).
 
 

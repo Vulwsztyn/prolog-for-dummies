@@ -4,7 +4,7 @@ my_abs(X,X2) :- X2 is -X.
 
 % to_key needs to follow the signature
 % to_key(+Elem: a, -KeyFromElem: b) 
-%type a and type b can be the same
+% type a and type b can be the same
 to_key(X,Y) :- my_abs(X,Y).
 
 

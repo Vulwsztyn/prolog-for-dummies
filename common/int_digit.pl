@@ -1,4 +1,4 @@
-% int_to_list_of_digits(+Int, -ListOfDigits)
+% int_to_list_of_digits(+Int: Int, -ListOfDigits: [Int])
 int_to_list_of_digits(0,[]) :- !.
 int_to_list_of_digits(N,Result) :- 
     NMod10 is N mod 10, 
