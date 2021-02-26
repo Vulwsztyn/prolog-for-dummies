@@ -2,7 +2,7 @@ Input:
 - L - list of integers - e.g. `[623, 278, 4231, 739, 38]`
 
 Algorithm:
-- map the list of ints to the list of lists of digits corresponding to each int
+- for each element of L create a list of all elements from L but this one (a complement)
     - `623 -> [278, 4231, 739, 38]`
     - `278 -> [623, 4231, 739, 38]`
     - `4231 -> [623, 278, 739, 38]`
