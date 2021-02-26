@@ -4,7 +4,7 @@ Input:
 
 Algorithm:
 - make a list (LS) of all sublist of length N composed of consecutive elements of list
-    -  `[16, 18, 22, 27, 12, 25, 21] -> [[16, 18, 22, 27],[18, 22, 27, 12],[22, 27, 12, 25],[27, 12, 25, 21]]`
+    -  `[16, 18, 22, 27, 12, 25, 21] -> [[16, 18, 22, 27], [18, 22, 27, 12], [22, 27, 12, 25], [27, 12, 25, 21]]`
 - for each list make a complement list from L:
     - `[16, 18, 22, 27] -> [12, 25, 21]`
     - `[18, 22, 27, 12] -> [16, 25, 21]`
