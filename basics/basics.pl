@@ -164,7 +164,7 @@ my_min([H|T],H) :- my_min(T,MT), MT > H, !.
 my_min([_|T],MT) :- my_min(T,MT).
 
 test_my_min(X) :- my_min([16, 18, 22, 27, 12, 25, 21],X).
-% X =27
+% X = 12
 
 
 % my_max(+List, -Max).
