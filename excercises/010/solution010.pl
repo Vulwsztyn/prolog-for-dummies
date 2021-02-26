@@ -1,15 +1,15 @@
-% int_to_list_of_digits(+Int, -ListOfDigits)
-int_to_list_of_digits(0,[]) :- !.
-int_to_list_of_digits(N,Result) :- 
-    NMod10 is N mod 10, 
-    NBy10 is N // 10,
-    int_to_list_of_digits(NBy10,PartialResult),
+% to_binary(+Int, -ListOfBits)
+to_binary(0,[]) :- !.
+to_binary(N,Result) :- 
+    NMod10 is N mod 2, 
+    NBy10 is N // 2,
+    to_binary(NBy10,PartialResult),
     append(PartialResult,[NMod10],Result).
 
 % notice [NMod10] in the append as append concatenates 2 lists and not adds "bare" elements to a list
 
-test_int_to_list_of_digits(X) :- int_to_list_of_digits(123,X).
-% X = [1, 2, 3]
+test_to_binary(X) :- to_binary(12345,X).
+% X = [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1]
 
 
 % list_of_digits_to_number(+ListOfDigits, -Number)
@@ -26,26 +26,31 @@ test_list_of_digits_to_number(X) :- list_of_digits_to_number([6, 2, 3],X).
 % X = 623
 
 
-% remove_nonmonotonic(+ListOfDigits, -MonotinicListOfDigits)
-remove_nonmonotonic([],[]).
-remove_nonmonotonic([X],[X]).
-remove_nonmonotonic([H1,H2|T],[H1|T2]) :- H1 < H2, remove_nonmonotonic([H2|T],T2), !.
-remove_nonmonotonic([H1,_|T],[H1|T2]) :- remove_nonmonotonic([H1|T],[H1|T2]).
+% count_consecutive(+List, -OutpuList)
+% I know the singatre and name is not the best :(
+count_consecutive([],[]).
+count_consecutive([_],[1]).
+count_consecutive([H,H|T],[HOutput|TOutput]) :-
+    count_consecutive([H|T], [HOutput1|TOutput]),
+    HOutput is HOutput1 + 1,
+    !.
+count_consecutive([_,H|T],[1|TOutput]) :-
+    count_consecutive([H|T], TOutput).
 
-test_remove_nonmonotonic(X,Y) :- 
-	remove_nonmonotonic([1,5,7],X),
-    remove_nonmonotonic([5,3,7],Y).
-% X = [1, 5, 7]
-% Y = [5, 7]
+test_count_consecutive(X,Y) :- 
+    count_consecutive([1,1,0,1,1],X),
+    count_consecutive([1,0,0,0,1],Y).
+% X = [2, 1, 2],
+% Y = [1, 3, 1]
 
 
 % to_key needs to follow the signature
 % to_key(+Elem: a, -KeyFromElem: b) 
 %type a and type b can be the same
 to_key(X, Y) :- 
-    int_to_list_of_digits(X, ListOfDigits),
-    remove_nonmonotonic(ListOfDigits, MonotinicListOfDigits),
-    list_of_digits_to_number(MonotinicListOfDigits,Y).
+    to_binary(X, Binary),
+    count_consecutive(Binary, Consecutives),
+    list_of_digits_to_number(Consecutives,Y).
 
 %%% from bykey/sort_easy%%%
 
@@ -72,5 +77,5 @@ quick_sort([H|T],Sorted):-
 
 solve(X,Y) :- quick_sort(X,Y).
 
-test_solve(X) :- solve([123,537,153,162],X).
-% X = [153, 162, 537, 123]
+test_solve(X) :- solve([27, 17, 24, 25, 31, 21],X).
+% X = [31, 24, 17, 27, 25, 21]
