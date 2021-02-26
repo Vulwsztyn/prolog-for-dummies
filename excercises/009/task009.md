@@ -19,4 +19,4 @@ Algorithm:
   - `[5, 7] -> 57`
   - `[1, 5] -> 15`
   - `[1, 6] -> 16`
-- sort numbers fromt he original list by keys
+- sort numbers from the original list by keys
