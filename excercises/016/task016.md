@@ -1,6 +1,6 @@
 Input:
 
-- L - list of unique ints - e.g. `[21,15,11]`
+- L - list of ints - e.g. `[21,15,11]`
 
 Algorithm:
 - map L to binary

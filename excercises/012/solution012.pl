@@ -23,7 +23,7 @@ my_abs_test(X,Y) :- my_abs(5,X), my_abs(-3,Y).
 
 
 % my_min(+List, -Min).
-my_min([X],X).
+my_min([X],X) :- !.
 my_min([H|T],H) :- my_min(T,MT), MT > H, !.
 my_min([_|T],MT) :- my_min(T,MT).
 

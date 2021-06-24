@@ -159,7 +159,7 @@ test_my_product(X) :- my_product([2,3,7],X).
 
 
 % my_min(+List, -Min).
-my_min([X],X).
+my_min([X],X) :- !.
 my_min([H|T],H) :- my_min(T,MT), MT > H, !.
 my_min([_|T],MT) :- my_min(T,MT).
 
@@ -168,7 +168,7 @@ test_my_min(X) :- my_min([16, 18, 22, 27, 12, 25, 21],X).
 
 
 % my_max(+List, -Max).
-my_max([X],X).
+my_max([X],X) :- !.
 my_max([H|T],H) :- my_max(T,MT), MT < H, !.
 my_max([_|T],MT) :- my_max(T,MT).
 

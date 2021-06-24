@@ -10,7 +10,7 @@ test_remove_one_once(X) :- remove_one_once([6,2,6,1,6,3,6,7],6,X).
 
 
 % my_min(+List, -Min).
-my_min([X],X).
+my_min([X],X) :- !.
 my_min([H|T],H) :- my_min(T,MT), MT > H, !.
 my_min([_|T],MT) :- my_min(T,MT).
 
