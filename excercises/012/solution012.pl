@@ -94,17 +94,24 @@ pivoting(P,List,[H|T],L,[H|G]) :-
     pivoting(P,List,T,L,G).
 
 
-% quick_sort(+List: [a], -SortedList: [a])
-quick_sort([],[]) :- !.
-quick_sort([H|T],Sorted):-
-    pivoting(H,T,T,L,G), 
-    quick_sort(L,SortedL), 
-    quick_sort(G,SortedG),
+% perform_quick_sort(+List: [a], -SortedList: [a])
+perform_quick_sort([],_,[]) :- !.
+perform_quick_sort([H|T],List,Sorted):-
+    pivoting(H,List,T,L,G), 
+    perform_quick_sort(L,List,SortedL), 
+    perform_quick_sort(G,List,SortedG),
     append(SortedL,[H|SortedG],Sorted),
     !.
+
+test_perform_quick_sort(X) :- perform_quick_sort([ 3, -18, 6, -5, 2, -8, 15, -13, 14, -0, 12, -7, 9, -10, -19, -16, 11, -1, 4, -17],[ 3, -18, 6, -5, 2, -8, 15, -13, 14, -0, 12, -7, 9, -10, -19, -16, 11, -1, 4, -17],X).
+% X = [0, -1, 2, 3, 4, -5, 6, -7, -8, 9, -10, 11, 12, -13, 14, 15, -16, -17, -18, -19]
+
+quick_sort(A,B):- perform_quick_sort(A,A,B).
 
 %% COPY END
 
 test_quick_sort(X) :- quick_sort([a,j,n,t,c,o,g],X).
+% X = [o, n, c, a, g, j, t]
 
 solution(X) :- test_quick_sort(X).
+

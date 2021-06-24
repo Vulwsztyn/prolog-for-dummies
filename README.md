@@ -37,3 +37,12 @@ I will almost never use the `?`, although probably I should as my predicates cou
 ### Which sorting algorithm should I learn?
 
 Quick sort. Hands down the simplest (I know it's counterintuitive) and with least code overhead.
+
+### Krucjata mapping 
+```
+1 - 009
+2 - 010
+3 - 012
+4 - 011
+5 - 013
+```
