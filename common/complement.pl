@@ -1,4 +1,14 @@
 % remove_one(+List: [a], +Elem: a, -ListWithoutElem: [a])
+remove_one_once([],_,[]).
+remove_one_once([H|T],H,T) :-!.
+remove_one_once([H|T],E,[H|Removed]) :-
+    remove_one_once(T,E,Removed).
+
+
+test_remove_one_once(X) :- remove_one_once([6,2,6,1,6,3,6,7],6,X).
+% X = [2, 6, 1, 6, 3, 6, 7]
+
+% remove_one(+List: [a], +Elem: a, -ListWithoutElem: [a])
 remove_one([],_,[]).
 remove_one([H|T],H,Filtered) :-
     remove_one(T,H,Filtered),
