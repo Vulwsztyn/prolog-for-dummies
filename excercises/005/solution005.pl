@@ -37,7 +37,7 @@ test_my_flatten_list(X) :- my_flatten_list([[6, 2, 3], [2, 7, 8], [4, 2, 3, 1], 
 
 
 % my_max(+List, -Max).
-my_max([X],X).
+my_max([X],X) :- !.
 my_max([H|T],H) :- my_max(T,MT), MT < H, !.
 my_max([_|T],MT) :- my_max(T,MT).
 
