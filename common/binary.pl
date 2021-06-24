@@ -24,3 +24,32 @@ from_binary(L,N) :-
 
 test_from_binary(X) :- from_binary([1,0,1,0,0,1,1,0,1,0],X).
 % X = 666
+
+
+% to_any_radix(+Radix, +Int, -ListOfBits)
+to_any_radix(_,0,[]) :- !.
+to_any_radix(R, N, Result) :- 
+    NMod10 is N mod R, 
+    NBy10 is N // R,
+    to_any_radix(R, NBy10, PartialResult),
+    append(PartialResult,[NMod10],Result).
+
+test_to_any_radix(X) :- to_any_radix(16,255,X).
+% X = [15, 15]
+
+
+% from_any_radix(+ListOfBits, -Number)
+from_any_radix(_,[],0).
+from_any_radix(R,L,N) :-
+    append(Init,[Last],L),
+	from_any_radix(R,Init,N1),
+    N is N1 * R + Last,
+    !.  
+
+% it is much easier to do this way than [H|T] because you would need to check length of T to know what power of 10 to multiply H by
+
+test_from_any_radix(X,Y) :- 
+    from_any_radix(2,[1,0,1,0,0,1,1,0,1,0],X),
+    from_any_radix(16,[15,15],Y).
+% X = 666,
+% Y = 255
