@@ -11,8 +11,8 @@ test_make_sublists(X) :- make_sublists([16, 18, 22, 27, 12, 25, 21],4,X).
 
 % complement(+List, +Sublist, -Complement)
 % returns the list of all elements that are not in the sublist
-% notice that it will not work if the leements in the list are not unique
-% 	or the order of the elements of the Sublist is different in sublist and in list
+% notice that it will work differently if the elements in the list are not unique 
+% or the order of the elements of the Sublist is different in sublist and in list
 complement(Orig,[],Orig).
 complement([H|TOrig],[H|TSublist],Complement) :- complement(TOrig,TSublist,Complement), !.
 complement([H|TOrig],Sublist,[H|Complement]) :- complement(TOrig,Sublist,Complement).
