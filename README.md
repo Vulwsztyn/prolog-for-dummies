@@ -45,4 +45,6 @@ Quick sort. Hands down the simplest (I know it's counterintuitive) and with leas
 3 - 012
 4 - 011
 5 - 013
+6 - 014
+9 - 015
 ```
