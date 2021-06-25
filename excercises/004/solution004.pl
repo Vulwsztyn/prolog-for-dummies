@@ -16,7 +16,7 @@ my_factors_from_list(N,[_|T],TFactors) :-
     my_factors_from_list(N,T,TFactors).
 
 % notice that I pass [H|T] and not H in the second line as e.g. 18 = 3^2 + 3^2
-% I forgot = in N >= H * H so remember that it is a possible mistake
+% I forgot = in N >= H * H so remember that is a possible mistake
 
 test_my_factors_from_list(X,Y,Z) :- 
     my_factors_from_list(15,[15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],X),
@@ -83,17 +83,3 @@ max_by_key([_|T],TM) :-
 test_max_by_key(X) :- max_by_key([15,22,33],X).
 
 solution(X,Y) :- max_by_key(X,Y).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
