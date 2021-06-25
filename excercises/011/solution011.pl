@@ -59,7 +59,7 @@ to_key(X, Y) :-
     leave_only_even_or_odd(R,Divisors,EvenOrOddDivisors),
     my_sum(EvenOrOddDivisors,Y).
 
-%%% from bykey/sort_easy%%%
+%%% from by_key/sort_easy%%%
 
 % pivoting(+Pivot: a, +List: [a], -Lesser: [a], -Greater: [a])
 pivoting(_,[],[],[]) :- !.
