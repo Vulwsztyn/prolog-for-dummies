@@ -39,7 +39,7 @@ my_sum([H|T],N) :- my_sum(T,N1), N is N1 + H.
 test_my_sum(X) :- my_sum([12,25,5],X).
 % X = 42
 
-
+% avg (for ctrl+f)
 % my_average(+List, -Average)
 % returns average of list
 % ! is not needed as it is not reccursive
