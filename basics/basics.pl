@@ -144,6 +144,24 @@ test_my_sum(X) :- my_sum([12,25,5],X).
 % X = 42
 
 
+% avg (for ctrl+f)
+% my_average(+List, -Average)
+% returns average of list
+% ! is not needed as it is not reccursive
+my_average(L,A) :- my_sum(L,S), length(L,Len), A is S / Len.
+
+test_my_average(A,B,C,D,E) :- my_average([16, 18, 22, 27, 12, 25, 21],A),
+    my_average([16, 18, 22, 27],B),
+    my_average([18, 22, 27, 12],C),
+    my_average([22, 27, 12, 25],D),
+    my_average([27, 12, 25, 21],E).
+% A = 20.142857142857142,
+% B = 20.75,
+% C = 19.75,
+% D = 21.5,
+% E = 21.25
+
+
 % my_product(+List, -Product)
 % returns product of list
 % ! is not needed as [] doesn't match [H|T]
