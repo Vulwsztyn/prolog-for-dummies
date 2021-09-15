@@ -1,10 +1,10 @@
 Input:
 
-- L - list of letters - e.g. `[a,j,n,t,c,o,g]`
+- L - list of letters - e.g. `[a, j, n, t, c, o, g]`
 
 Consts:
 
-- alphabet([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z]).
+- alphabet([a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z]).
 
 Algorithm:
 
@@ -27,6 +27,7 @@ Algorithm:
 - sort letters from the original list by keys
 
 Alternative Algorithm (used in code):
+
 - map each element of L to it's index in alphabet
   - `a -> 0`
   - `j -> 9`

@@ -2,7 +2,7 @@ Input:
 - L - list of unique integers - e.g. `[16, 18, 22, 27, 12, 25, 21, 13]`
 
 Algorithm:
-- make a list (LS) of all sublist of length 2 composed of elements of list in sych a way that: first is paired with ultimate, second with penultimate, third with antepenultimate, forth with preantepenultimate, and so on and so forth
+- make a list (LS) of all sublist of length 2 composed of elements of list in such a way that: first is paired with ultimate, second with penultimate, third with antepenultimate, fourth with preantepenultimate, and so on and so forth
     - `[16, 18, 22, 27, 12, 25, 21, 13] -> [[16, 13], [18, 21], [22, 25], [27, 12]]`
 - for each list make a complement list from L:
     - `[16, 13] -> [18, 22, 27, 12, 25, 21]`

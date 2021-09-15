@@ -1,56 +1,56 @@
 Input:
 
-- I - list of intervals - e.g. `[[-3,5],[0,7],[2,10],[3,8],[-2,2]]`
-- L - sorted list of integers - e.g. `[-4,-1,2,4,5,7,8,9]`
+- I - list of intervals - e.g. `[[-3, 5], [0, 7], [2, 10], [3, 8], [-2, 2]]`
+- L - sorted list of integers - e.g. `[-4, -1, 2, 4, 5, 7, 8, 9]`
 
 Algorithm:
 
 - for each element of I generate a flitered version o L consisting only of elements that are inside the interval (exclusively)
-  - `[-3,5] -> [-1,2,4]`
-  - `[0,7] -> [2,4,5]`
-  - `[2,10] -> [4,5,7,8,9]`
-  - `[3,8] -> [4,5,7]`
-  - `[-2,2] -> [-1]`
-- add each list created in the previous step inside the interval it "belongs to"
-  - `[-3,5] -> [-1,2,4] -> [-3,-1,2,4,5]`
-  - `[0,7] -> [2,4,5] -> [0,2,4,5,7]`
-  - `[2,10] -> [4,5,7,8,9] -> [2,4,5,7,8,9,10]`
-  - `[3,8] -> [4,5,7] -> [3,4,5,7,8]`
-  - `[-2,2] -> [-1] -> [-2,-1,2]`
+  - `[-3, 5] -> [-1, 2, 4]`
+  - `[0, 7] -> [2, 4, 5]`
+  - `[2, 10] -> [4, 5, 7, 8, 9]`
+  - `[3, 8] -> [4, 5, 7] <- 8 is not here since exclusively`
+  - `[-2, 2] -> [-1]`
+- merge elements of I with elements of L from previous step - so that they are still sorted
+  - `[-3, 5] -> [-1, 2, 4] -> [-3, -1, 2, 4, 5]`
+  - `[0, 7] -> [2, 4, 5] -> [0, 2, 4, 5, 7]`
+  - `[2, 10] -> [4, 5, 7, 8, 9] -> [2, 4, 5, 7, 8, 9, 10]`
+  - `[3, 8] -> [4, 5, 7] -> [3, 4, 5, 7, 8]`
+  - `[-2, 2] -> [-1] -> [-2, -1, 2]`
 - split lists from the previous step into intervals
-  - `[-3,-1,2,4,5] -> [[-3, -1], [-1, 2], [2, 4], [4, 5]]`
-  - `[0,2,4,5,7] -> [[0, 2], [2, 4], [4, 5], [5, 7]]`
-  - `[2,4,5,7,8,9,10] -> [[2, 4], [4, 5], [5, 7], [7, 8], [8, 9], [9, 10]]`
-  - `[3,4,5,7,8] -> [[3, 4], [4, 5], [5, 7], [7, 8]]`
-  - `[-2,-1,2] -> [[-2, -1], [-1, 2]]`
+  - `[-3, -1, 2, 4, 5] -> [[-3, -1], [-1, 2], [2, 4], [4, 5]]`
+  - `[0, 2, 4, 5, 7] -> [[0, 2], [2, 4], [4, 5], [5, 7]]`
+  - `[2, 4, 5, 7, 8, 9, 10] -> [[2, 4], [4, 5], [5, 7], [7, 8], [8, 9], [9, 10]]`
+  - `[3, 4, 5, 7, 8] -> [[3, 4], [4, 5], [5, 7], [7, 8]]`
+  - `[-2, -1, 2] -> [[-2, -1], [-1, 2]]`
 - for each element of I find it's middle (average of its start and end)
-  - `[-3,5] -> 1`
-  - `[0,7] -> 3.5`
-  - `[2,10] -> 6`
-  - `[3,8] -> 5.5`
-  - `[-2,2] -> 0`
-- for each middle and list of intervals from penultimate step find and interval in the list that contains the middle (right inclusively - e.g. 3 is in `[2,3]`)
-  - `1 and [[-3, -1], [-1, 2], [2, 4], [4, 5]] -> [2, 4]`
-  - `3.5 and [[0, 2], [2, 4], [4, 5], [5, 7]] -> [2, 4]`
-  - `6 and [[2, 4], [4, 5], [5, 7], [7, 8], [8, 9], [9, 10]] -> [5, 7]`
-  - `5.5 and [[3, 4], [4, 5], [5, 7], [7, 8]] -> [5, 7]`
-  - `0 and [[-2, -1], [-1, 2]] -> [-1, 2]`
+  - `[-3, 5] -> 1`
+  - `[0, 7] -> 3.5`
+  - `[2, 10] -> 6`
+  - `[3, 8] -> 5.5`
+  - `[-2, 2] -> 0`
+- for each middle and list of intervals from penultimate step find and interval in the list that contains the middle (right inclusively - e.g. 3 is in `[2, 3]`)
+  - `[-3, 5] -> 1 and [[-3, -1], [-1, 2], [2, 4], [4, 5]] -> [2, 4]`
+  - `[0, 7] -> 3.5 and [[0, 2], [2, 4], [4, 5], [5, 7]] -> [2, 4]`
+  - `[2, 10] -> 6 and [[2, 4], [4, 5], [5, 7], [7, 8], [8, 9], [9, 10]] -> [5, 7]`
+  - `[3, 8] -> 5.5 and [[3, 4], [4, 5], [5, 7], [7, 8]] -> [5, 7]`
+  - `[-2, 2] -> 0 and [[-2, -1], [-1, 2]] -> [-1, 2]`
 - for each interval from previous step find it's width (difference between end and start)
-  - `[2, 4] -> 2`
-  - `[2, 4] -> 2`
-  - `[5, 7] -> 2`
-  - `[5, 7] -> 2`
-  - `[-1, 2] -> 3`
+  - `[-3, 5] -> 1 and [[-3, -1], [-1, 2], [2, 4], [4, 5]] -> [2, 4] -> 2`
+  - `[0, 7] -> 3.5 and [[0, 2], [2, 4], [4, 5], [5, 7]] -> [2, 4] -> 2`
+  - `[2, 10] -> 6 and [[2, 4], [4, 5], [5, 7], [7, 8], [8, 9], [9, 10]] -> [5, 7] -> 2`
+  - `[3, 8] -> 5.5 and [[3, 4], [4, 5], [5, 7], [7, 8]] -> [5, 7] -> 2`
+  - `[-2, 2] -> 0 and [[-2, -1], [-1, 2]] -> [-1, 2] -> 3`
 - for each element of I find it's width (difference between end and start)
-  - `[-3,5] -> 8`
-  - `[0,7] -> 7`
-  - `[2,10] -> 8`
-  - `[3,8] -> 5`
-  - `[-2,2] -> 4`
+  - `[-3, 5] -> 8`
+  - `[0, 7] -> 7`
+  - `[2, 10] -> 8`
+  - `[3, 8] -> 5`
+  - `[-2, 2] -> 4`
 - for each interval from I absolute difference between widths from the previous and penultimate step is the key
-  - `abs(width([-3,5]) - width([2, 4])) -> 8 - 2 = 6`
-  - `abs(width([0,7]) - width([2, 4])) -> 7 - 2 = 6`
-  - `abs(width([2,10]) - width([5, 7])) -> 8 - 2 = 6`
-  - `abs(width([3,8]) - width([5, 7])) -> 5 - 2 = 3`
-  - `abs(width([-2,2]) - width([-1, 2])) -> 4 - 3 = 1`
+  - `abs(width([-3, 5]) - width([2, 4])) -> 8 - 2 = 6`
+  - `abs(width([0, 7]) - width([2, 4])) -> 7 - 2 = 6`
+  - `abs(width([2, 10]) - width([5, 7])) -> 8 - 2 = 6`
+  - `abs(width([3, 8]) - width([5, 7])) -> 5 - 2 = 3`
+  - `abs(width([-2, 2]) - width([-1, 2])) -> 4 - 3 = 1`
 - find max by key

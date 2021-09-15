@@ -1,0 +1,226 @@
+var sorting_algorithm = ['bubble', 'insertion', 'quicksort', 'selectionsort', 'mergesort'];
+console.log("Sort that cancer by "+sorting_algorithm[Math.floor(Math.random()*sorting_algorithm.length)]+" algorithm.");
+
+zad 1.
+1. Na wejściu jest lista liczb. Trzeba:
+[123,537,153,162]
+-rozbić każdą z liczb na listę jej cyfr
+[[1,2,3][5,3,7][1,5,3][1,6,2]]
+-z podlist usunąć cyfry, które psują monotoniczność rosnącą
+[1,2,3][5,7][1,5][1,6]
+-połączyć pozostałe cyfry w podliście spowrotem w liczby 
+[123,57,15,16]
+-posegregować wejściową listę na podstawie otrzymanych liczb
+[153,162,537,123]
+
+//=====================================================================
+
+zad 2.
+była sobie lista [27, 17, 24, 25, 31, 21]. trzeba było tą listę zamienić na listę list zer i jedynek - [[1,1,0,1,1],[1,0,0,0,1],[1,1,0,0,0],[1,1,0,0,1],[1,1,1,1,1],[1,0,1,0,1]]. 
+potem trzeba było sprawdzić kolejne bity i liczyć ile jest takich samych pod rząd - [[2,1,2],[1,3,1],[2,3],[2,2,1],[5],[1,1,1,1,1]]. 
+potem zamienić tą listę list na listę liczb składających się z tych cyferek - [212,131,23,221,5,11111]. posortować je - [5, 23, 131, 212, 221, 11111]. 
+i na koniec wypisać te początkowe liczby na odpowiednich miejscach na podstawie tej posortowanej listy - [31, 24, 17, 27, 25, 21].
+
+//=====================================================================
+
+zad 3.
+dany jest fakt alfabet([a,b,c,d,...]). oraz lista wejściowa [a,j,n,t,c,o,g]
+Należy wyznaczyć odległość każdego elementu listy do najbliższego sąsiada wg pozycji w alfabecie (np. najbliższy sąsiad "a" to "c" i odległość wynosi 2). 
+Następnie listę wejściową należy posortować wg tych odległości. Predykaty pomocnicze idx(Sym,Idx), odl(Sym,Sym2,D), min(Sym,Lwe,Sąsiad)
+
+//=====================================================================
+
+zad 4.
+"Lista liczb, np [20,11,24,15], każda liczbę rozbić na listę dzielników, dla parzystych dodać dzielniki parzyste, dla nparz nparzyste. Posortować wg tej sumy.
+20 - dzielniki 1,2,4,5,10 - suma 16
+Wyjściowa lista [11,15,20,24]"
+
+//=====================================================================
+
+zad 5.
+Dana jest lista przedziałów:
+[[-1,3],[14,20],[0,14]]
+-wyznaczyć środek każdej list
+[[1],[17],[7]]
+-minimalną odleglosc miedzy środkami, czyli dla elementu 1 to jest 6 do srodka trzeciego przedzialu
+[[6],[10],[6]].
+-na podstawie tych minimalnych odleglosci posortowac dane początkowo przedziały
+
+//=====================================================================
+
+zad 6.
+alfabet([a,b,c,d,...,y,z])
+do utworzenia predykat alfagrup(Lwe1,Lwe2,Lwy)
+Lwe1 zawiera unikalne elementy z alfabetu np. [c,m,p]
+Lwe2 zawiera dowolne elementy z alfabetu np. [a,b,d,e,r,y,a,k,n,b,z]
+Lwy ma zawierać elementy z listy Lwe2 pogrupowane wg tego do którego elementu unikalnego mają najbliżej np. [[a,a,b,b,d,e],[k,n],[r,y,z]]
+
+//=====================================================================
+
+			zad 7.
+			8.My mieliśmy listę punktów i trzeba było znaleźć punkt najbliżej środka najmniejszego okręgu zawierającego wszystkie punkty.
+
+//=====================================================================
+
+			zad 8.
+			9.Mając listę punktów, sprawdzić ile unikalnych trójkątów można stworzyć.
+
+//=====================================================================
+
+zad 9.
+1) Podana jest lista liczb, którą należy posortować według klucza. Co zrobić, aby uzyskać klucz: daną listę należy zamienić na listę liczb szesnastkowych, a nastepnie usunąć z podanych liczb cyfry większe od 10 (A,B,C itd). 
+przyklad: 
+164 177 178
+A4 B1 B2
+4 1 2
+posortowane: 177 178 164
+
+//=====================================================================
+
+zad 10.
+2) Jakby ktoś chciał poćwiczyć to dzisiaj dostaliśmy coś takiego:
+Narysowal nam taki przyklad:
+21->10101->10101->21
+15->1111->1->1
+11->1011->101->5
+Pierwsza kolumna to elementy listy wejsciowej
+Druga kolumna to ich binarny zapis
+Trzecia to usuniecie powtorzeb w tym zapisie
+A ostatnia zamiana tego wczesniejszego na dziesietny
+Musielismy posortowac liste wejsciowa wedlug klucza ktorym sa wartosci z ostatniej kolumny
+
+//=====================================================================
+
+zad 11.
+3) z listy liczb zrobić listę list odpowiadających im czynników pierwszych, z podlist wybrać elementy unikalne
+i na podstawie ich ilości posegregowac wejściowa listę.
+
+//=====================================================================
+
+zad 12.
+4)wyznaczasz min i maks, po czym liczysz średnią z elementów listy pomiędzy nimi, ta średnia to klucz, posortowac listę list według klucza.
+
+//=====================================================================
+
+zad 13.
+masz listę list. 
+1. znajdujesz maksimum
+2. obcinasz każdą listę z prawej lub lewej strony, by max był w środku
+np. [1,5,3,9,0]->[3,9,0]
+3. liczysz średnią z tej obciętej listy - to jest klucz
+4. sortujesz wg klucza
+
+//=====================================================================
+
+zad 14.
+Sortowanie list wedlug elementu najbliższego do średniej z min i max
+
+//=====================================================================
+
+zad 15.
+posortować liste List od najmniejszego stopnia unikalnych elementow do najwiekszego czyli:
+dane wejsciowe: run([[t,y],[a,b,c],[d,b,c,g,x],[g,h,i,j,k,z]],L).
+[t,y] 2/2 = 1 -> 2 elementy unikalne / 2 elementy w danej liscie = stopien unikalnosci 
+[a,b,c] - 1/3 = 0.33
+[d,b,c,g,x] - 2/5 = 0.4
+[g,h,i,j,k,z] - 5/6 = 0.83
+ddp: [[a,b,c],[d,b,c,g,x],[g,h,i,j,k,z],[t,y]]
+rozwiązanie autorstwa Michał Juszczak i mojego:
+http://wklej.org/hash/50625b0e571/
+w razie pytań służę pomocą.
+
+//=====================================================================
+
+			zad 16.
+			http://swish.swi-prolog.org/p/3-termin-kwadraty.pl
+
+//=====================================================================
+
+			zad 17.
+			Mamy daną listę liczb, należy ją posortować, obliczyć odległości, dodać odległości międzyliczbowe i według nich posortować listę wejściowa
+			don't understand
+
+//=====================================================================
+
+zad 18.
+Farciarze dostali to samo zadanie co było we wtorek - / i \ tworzące wykres
+dzisiaj na poprawce labów dostałam takie zadanie:
+lista wejściowa[/,/,\,\,\,\,/,/,\,\,\,\,/,/,/,\], którą trzeba było zmienić na [1,2,2,1,0,-1,-1,0,0,-1,-2,-3,-3,-2,-1,-1], 
+czyli chodzi mniej więcej o to, że '/' znaczy plus 1, a '\' znaczy minus 1, 
+potem trzeba było z tej drugiej listy wybrać najczęściej powtarzającą się liczbę.
+
+//=====================================================================
+
+zad 19.
+Czy ktoś miałby może jakieś uwagi do mojego rozwiązania tego zadania:
+Dana jest lista punktów:
+[[3,6],[1,2],[5,5],[5,2]]
+-predykat odleglosc(P1,P2,Odl) - euklidesowa odległość między punktami
+-dla każdego punktu znaleźć minimalną odległość do sąsiada - predykat minodl(Lista,Punkt,Minodl)
+-posortować według tych odległości
+[[3, 6], [5, 5], [5, 2], [1, 2]]
+rozwiązanie:http://wklej.org/id/1800607/
+Nie rozumiem czemu sortowanie dla 3 elementowej listy wywala out of stack exception :<
+
+//=====================================================================
+
+zad 20.
+Kongruencja liczb 
+masz listę list i w każdej znajdujesz takie największe X, że reszty z dzielenia liczb w liście są równe(dla [12,22,27] X=5, no i X to klucz do sortowania.
+
+//=====================================================================
+
+
+
+
+
+
+5)Lista z listami liter, z których każda się powtarzała 1 raz. Trzeba było policzyć średnią odległość między nimi i według tego klucza posortować. Czyli odległość [a, a] to 1, [a, b, a,...] dla elementu a to 2 itd. średnia dla lsity [a, b, b, a] to w takim razie (3 + 1) / 2 = 2 a dla [a, a, b, b, c, c] to (1+1+1)/3 = 1. Czyli po posortowaniu powinieneć mieć [a, a, b, b, c, c], [a, b, b, a].
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+Lista wszystkich oprócz dwóch:
+1
+Lista z listami liter, z których każda się powtarzała 1 raz. Trzeba było policzyć średnią odległość między nimi i według tego klucza posortować. Czyli odległość [a, a] to 1, [a, b, a,...] dla elementu a to 2 itd. średnia dla lsity [a, b, b, a] to w takim razie (3 + 1) / 2 = 2 a dla [a, a, b, b, c, c] to (1+1+1)/3 = 1. Czyli po posortowaniu powinieneć mieć [a, a, b, b, c, c], [a, b, b, a].
+2
+Lista z liczbami: [5,6,7,10,14,16,17,19] (uporządkowane, skrajne są unikalne)
+Wzór: Max - Min / MaxPos - MinPos = X (tutaj był też przepiękny wykres <3 )
+Gdzie Max to 19, Min na start 5, następnie każda kolejna
+Wybrać liczby, przy których wynik ze wzoru jest mniejszy niż wynik z 5,19 (min, max)
+Średnia z wybranych liczb to klucz.
+Listy przykładowe:
+[5,6,7,10,14,16,17,19] ; średnia 15 ; wzór(min, max) :- 2.0
+[1,2,2,2,4,4,5,5,5,5,6] ; średnia 4.0
+[11,15,18,19,20,25,30,35,36,38] ; średnia 26.8
+Lista wejściowa: [5,6,7,10,14,16,17,19]
+Liczysz 'graniczną' wartość z unikalnych liczb min i max, czyli 5 i 19 -> 2.0
+Teraz wywalasz te liczby z listy
+Dla każdej pozostałej liczby liczysz wartość ze wzoru, przyjmujesz liczbę jako min i jej pozycję (pozycję w liście wejściowej, niezmienionej) do max z pozycji wejściowej, niezmienionej
+Czyli 6 i 19, 7 i 19, 10 i 19, 14 i 19, 16 i 19, 17 i 19
+Których wyniki będą mniejsze od 'granicznej' wartości, te się nadają
+5
+Kongruencja liczb 
+masz listę list i w każdej znajdujesz takie największe X, że reszty z dzielenia liczb w liście są równe(dla [12,22,27] X=5, no i X to klucz do sortowania.
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+Ktoś ma pomysł jak to poprawnie zrealizować:
+Lista wejściowa: [[1,1,0,1,1],[1,0,0,0,1],[1,1,0,0,0],[1,1,0,0,1],[1,1,1,1,1],[1,0,1,0,1]].
+Sprawdzić kolejne bity i liczyć ile jest takich samych pod rząd 
+[[2,1,2],[1,3,1],[2,3],[2,2,1],[5],[1,1,1,1,1]]
+Ja mam coś takiego ale to średnio działa 
+dodaj([A,A],K,[K1]):- K1 is K+2,!.
+dodaj([A,B],K,[K1,1]):- A=\=B, K1 is K+1, !.
+dodaj([A,A|T1],K,L2):- A=:=A, K1 is K+1, dodaj([A|T1],K1,L2).
+dodaj([A,B|T1],K,[K1|L2]):- A =\= B,
+K1 is K+1, dodaj([B|T1],0,L2).
+dod(Lwe,Lwy):- dodaj(Lwe,0,Lwy).
+
+http://wklej.org/id/2554285/
+http://wklej.org/id/2853776/
+
+
+
+
+
