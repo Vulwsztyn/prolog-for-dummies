@@ -21,4 +21,8 @@ Algorithm:
     - `digits of 739 in [6, 2, 3, 2, 7, 8, 4, 2, 3, 1, 3, 8] -> [1, 3, 0]`
     - `digits of 38 in [6, 2, 3, 2, 7, 8, 4, 2, 3, 1, 7, 3, 9] -> [3, 1]`
 - the average of the resulting lists is the key, find argument that gives minimal key
-
+    - `digits of 623 in [2, 7, 8, 4, 2, 3, 1, 7, 3, 9, 3, 8] -> [0, 2, 3] -> 5/3`
+    - `digits of 278 in [6, 2, 3, 4, 2, 3, 1, 7, 3, 9, 3, 8] -> [2, 1, 1] -> 4/3`
+    - `digits of 4231 in [6, 2, 3, 2, 7, 8, 7, 3, 9, 3, 8] -> [0, 2, 3, 0] -> 5/4 <- this one` 
+    - `digits of 739 in [6, 2, 3, 2, 7, 8, 4, 2, 3, 1, 3, 8] -> [1, 3, 0] -> 4/3`
+    - `digits of 38 in [6, 2, 3, 2, 7, 8, 4, 2, 3, 1, 7, 3, 9] -> [3, 1] -> 2`
