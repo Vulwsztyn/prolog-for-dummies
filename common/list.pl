@@ -80,4 +80,11 @@ my_flatten([H|T], [H|FT]) :-
 test_my_flatten(X) :- my_flatten([[], [1], [2, 3], [3, 4, 5], [4, 5, 6, 7]], X).
 % X = [1, 2, 3, 3, 4, 5, 4, 5, 6, 7]
 test_my_flatten(X) :- my_flatten([2, [1], [2, 3], [3, 4, 5], [4, 5, 6, 7], 8], X).
-X = [2, 1, 2, 3, 3, 4, 5, 4, 5, 6, 7, 8]
+% X = [2, 1, 2, 3, 3, 4, 5, 4, 5, 6, 7, 8]
+
+% my_reverse(+List, -reversedList).
+my_reverse([], []).
+my_reverse([H|T], L) :- my_reverse(T, L1), append(L1, [H], L).
+
+test_reverse(X) :- my_reverse([1, 2, 3, 4], X).
+% X = [4, 3, 2, 1]
