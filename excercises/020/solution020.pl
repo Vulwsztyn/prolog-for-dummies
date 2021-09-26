@@ -38,34 +38,34 @@ test_leave_only_included(X) :- leave_only_included([0, 7], [-4, -1, 2, 4, 5, 7, 
 
 
 % find_furthest(+From: number, +List: []number, -Furthest: number)
-find_furthest(_,[X],X) :- !.
-find_furthest(X,[H|T],H) :-
-    find_furthest(X,T,FT),
+find_furthest(_, [X], X) :- !.
+find_furthest(X, [H|T], H) :-
+    find_furthest(X, T, FT),
     DT is X - FT,
     DH is X - H,
-    my_abs(DT,ADT),
-    my_abs(DH,ADH),
+    my_abs(DT, ADT),
+    my_abs(DH, ADH),
     ADH > ADT,
     !.
 
-find_furthest(X,[_|T],FT) :-
-    find_furthest(X,T,FT).
+find_furthest(X, [_|T], FT) :-
+    find_furthest(X, T, FT).
 
 test_find_furthest(X) :- find_furthest(6, [2, 4, 5, 7, 8, 9], X).
 % X = 2
 
 
-to_key(I,L,K) :-
-    leave_only_included(I,L,Included),
-    my_middle(I,Middle),
-    find_furthest(Middle,Included,K).
+to_key(I, L, K) :-
+    leave_only_included(I, L, Included),
+    my_middle(I, Middle),
+    find_furthest(Middle, Included, K).
 
 
-max_by_key([X],_,X) :- !.
-max_by_key([H|T],L, H) :- 
-    max_by_key(T, L,TMax), 
-    to_key(TMax,L,TKey),
-    to_key(H,L,HK),
+max_by_key([X], _, X) :- !.
+max_by_key([H|T], L, H) :- 
+    max_by_key(T, L, TMax), 
+    to_key(TMax, L, TKey),
+    to_key(H, L, HK),
     TKey =< HK, 
     !.
 max_by_key([_|T], L, TMax) :-  

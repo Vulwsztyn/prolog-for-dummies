@@ -1,6 +1,6 @@
 Input:
 
-- L - list of lists - e.g. `[[21, 15, 11],[1, 2, 3, 4]]`
+- L - list of lists - e.g. `[[21, 15, 11], [1, 2, 3, 4]]`
   Sry, I don't want to work on an example rn
 
 Algorithm:

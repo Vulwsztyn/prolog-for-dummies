@@ -4,7 +4,7 @@ Input:
 
 Algorithm:
 
-- map L to it's hexadecimal representation (CDA to use ABCDE so I use 10,11,12,13,14.15)
+- map L to it's hexadecimal representation (CDA to use ABCDE so I use 10, 11, 12, 13, 14.15)
   - `164 -> [10, 4]`
   - `177 -> [11, 1]`
   - `178 -> [11, 2]`
