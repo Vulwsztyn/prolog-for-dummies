@@ -54,5 +54,6 @@ Quick sort. Hands down the simplest (I know it's counterintuitive) and with leas
 12 - 017
 13 - 018
 20 - 019 - kongruencja
+18 - 021
 
 ```
