@@ -60,13 +60,33 @@ test_map_to_middle(X) :- map_to_middle([[-3, 4], [-3, 5]], X).
 
 
 % to_key(+Elem, +List, -Key)
-to_key(Elem, List, Key) :-
+to_key(Elem, List, ListWithoutElem, MidElem, Mids, Diffs, Key) :-
     remove_one_once(List, Elem, ListWithoutElem),
     my_middle(Elem, MidElem),
     map_to_middle(ListWithoutElem, Mids),
     map_to_diff(Mids, MidElem, Diffs),
     my_min(Diffs, Key),
     !.
+
+test_to_key(A1, A2, A3, A4, AKey, B1, B2, B3, B4, BKey, C1, C2, C3, C4, CKey) :-
+    to_key([-1, 3], [[-1, 3], [14, 20], [0, 14]], A1, A2, A3, A4, AKey),
+    to_key([14, 20], [[-1, 3], [14, 20], [0, 14]], B1, B2, B3, B4, BKey),
+    to_key([0, 14], [[-1, 3], [14, 20], [0, 14]], C1, C2, C3, C4, CKey).
+% A1 = [[14, 20], [0, 14]],
+% A2 = 1,
+% A3 = [17, 7],
+% A4 = [16, 6],
+% AKey = 6, 
+% B1 = [[-1, 3], [0, 14]],
+% B2 = 17,
+% B3 = [1, 7],
+% B4 = [16, 10],
+% BKey = 10,
+% C1 = [[-1, 3], [14, 20]],
+% C2 = 7,
+% C3 = [1, 17],
+% C4 = [6, 10],
+% CKey = 6
 
 
 %% COPY FROM sort_with_context %%
@@ -75,8 +95,8 @@ to_key(Elem, List, Key) :-
 pivoting(_, _, [], [], []) :- !.
 pivoting(P, List, [H|T], [H|L], G) :-
     pivoting(P, List, T, L, G), 
-    to_key(H, List, HKey),
-    to_key(P, List, PKey),
+    to_key(H, List, _, _, _, _, HKey),
+    to_key(P, List, _, _, _, _, PKey),
     HKey =< PKey,
     !.
 pivoting(P, List, [H|T], L, [H|G]) :- 

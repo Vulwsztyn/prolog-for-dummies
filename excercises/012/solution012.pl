@@ -69,15 +69,18 @@ test_remove_one_once(X) :- remove_one_once([6, 2, 6, 1, 6, 3, 6, 7], 6, X).
 % to_key(+Elem, +List, -MinDist)
 % MinDist is min index distance between Elem and Elems of List
 % where "index distance" means difference between indexes of 2 elems in alphabet
-to_key(Elem, List, MinDist) :-
+to_key(Elem, List, ListWithoutElem, [ElemIndex|Indices], Diffs, MinDist) :-
     alphabet(A),
     remove_one_once(List, Elem, ListWithoutElem),
     map_to_indices([Elem|ListWithoutElem], A, [ElemIndex|Indices]),
     map_to_diff(Indices, ElemIndex, Diffs),
     my_min(Diffs, MinDist).
 
-test_to_key(X) :- to_key(a, [a, j, n, t, c, o, g], X).
-% X = 2    
+test_to_key(A, B, C, Key) :- to_key(a, [a, j, n, t, c, o, g], A, B, C, Key).
+% A = [j, n, t, c, o, g],
+% B = [0, 9, 13, 19, 2, 14, 6],
+% C = [9, 13, 19, 2, 14, 6],
+% Key = 2 
 
 
 %% COPY FROM sort_with_context %%
@@ -86,8 +89,8 @@ test_to_key(X) :- to_key(a, [a, j, n, t, c, o, g], X).
 pivoting(_, _, [], [], []) :- !.
 pivoting(P, List, [H|T], [H|L], G) :-
     pivoting(P, List, T, L, G), 
-    to_key(H, List, HKey),
-    to_key(P, List, PKey),
+    to_key(H, List, _, _, _, HKey),
+    to_key(P, List, _, _, _, PKey),
     HKey =< PKey,
     !.
 pivoting(P, List, [H|T], L, [H|G]) :- 

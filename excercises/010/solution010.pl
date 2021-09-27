@@ -44,13 +44,25 @@ test_count_consecutive(X, Y) :-
 % Y = [1, 3, 1]
 
 
-% to_key needs to follow the signature
-% to_key(+Elem: a, -KeyFromElem: b) 
-%type a and type b can be the same
-to_key(X, Y) :- 
+to_key(X, Binary, Consecutives, Key) :- 
     to_binary(X, Binary),
     count_consecutive(Binary, Consecutives),
-    list_of_digits_to_number(Consecutives, Y).
+    list_of_digits_to_number(Consecutives, Key).
+
+test_to_key(A1, A2, AKey, B1, B2, BKey, C1, C2, CKey) :-
+    to_key(27, A1, A2, AKey),
+    to_key(17, B1, B2, BKey),
+    to_key(24, C1, C2, CKey).
+% A1 = [1, 1, 0, 1, 1],
+% A2 = [2, 1, 2],
+% AKey = 212,
+% B1 = [1, 0, 0, 0, 1],
+% B2 = [1, 3, 1],
+% BKey = 131,
+% C1 = [1, 1, 0, 0, 0],
+% C2 = [2, 3],
+% CKey = 23
+
 
 %%% from bykey/sort_easy%%%
 
@@ -58,8 +70,8 @@ to_key(X, Y) :-
 pivoting(_, [], [], []) :- !.
 pivoting(P, [H|T], [H|L], G) :-
     pivoting(P, T, L, G), 
-    to_key(H, HKey),
-    to_key(P, PKey),
+    to_key(H, _, _, HKey),
+    to_key(P, _, _, PKey),
     HKey =< PKey,
     !.
 pivoting(P, [H|T], L, [H|G]) :- 

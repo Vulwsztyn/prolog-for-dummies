@@ -47,23 +47,23 @@ to_key(Point, Points, PointsWithoutPoint, Dists, Key) :-
     map_to_dist(Point, PointsWithoutPoint, Dists),
     my_min(Dists, Key).
 
-test_to_key(A1, A2, A3, B1, B2, B3, C1, C2, C3, D1, D2, D3) :-
-    to_key([3, 6], [[3, 6], [1, 2], [5, 5], [5, 2]], A1, A2, A3),
-    to_key([1, 2], [[3, 6], [1, 2], [5, 5], [5, 2]], B1, B2, B3),
-	to_key([5, 5], [[3, 6], [1, 2], [5, 5], [5, 2]], C1, C2, C3),
-	to_key([5, 2], [[3, 6], [1, 2], [5, 5], [5, 2]], D1, D2, D3).
+test_to_key(A1, A2, AKey, B1, B2, BKey, C1, C2, CKey, D1, D2, DKey) :-
+    to_key([3, 6], [[3, 6], [1, 2], [5, 5], [5, 2]], A1, A2, AKey),
+    to_key([1, 2], [[3, 6], [1, 2], [5, 5], [5, 2]], B1, B2, BKey),
+	to_key([5, 5], [[3, 6], [1, 2], [5, 5], [5, 2]], C1, C2, CKey),
+	to_key([5, 2], [[3, 6], [1, 2], [5, 5], [5, 2]], D1, D2, DKey).
 % A1 = [[1, 2], [5, 5], [5, 2]],
 % A2 = [20, 5, 20],
-% A3 = 5, 
+% AKey = 5, 
 % B1 = [[3, 6], [5, 5], [5, 2]],
 % B2 = [20, 25, 16],
-% B3 = 16,
+% BKey = 16,
 % C1 = [[3, 6], [1, 2], [5, 2]],
 % C2 = [5, 25, 9],
-% C3 = 5,
+% CKey = 5,
 % D1 = [[3, 6], [1, 2], [5, 5]],
 % D2 = [20, 16, 9],
-% D3 = 9
+% DKey = 9
 
 
 % pivoting(+Pivot: a, +List: []a, +List: []a, -Lesser: []a, -Greater: []a)

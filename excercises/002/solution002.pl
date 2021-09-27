@@ -65,9 +65,9 @@ my_abs_test(X, Y) :- my_abs(5, X), my_abs(-3, Y).
 % Y = 3
 
 
-% sublist_to_key(+Sublist, +List, -Key)
+% sublist_to_key(+Sublist, +List, ..., -Key)
 % calculates the differance between averages of the list and the complement of sublist
-sublist_to_key(Sublist, List, Key) :- 
+sublist_to_key(Sublist, List, Complement, LA, CA, D, Key) :- 
     complement(List, Sublist, Complement),
     my_average(List, LA), 
     my_average(Complement, CA),
@@ -75,20 +75,31 @@ sublist_to_key(Sublist, List, Key) :-
     abs(D, Key).
     
 
-test_sublist_to_key(K1, K2, K3, K4) :- 
-    sublist_to_key([16, 13], [16, 18, 22, 27, 12, 25, 21, 13], K1),
-	sublist_to_key([18, 21], [16, 18, 22, 27, 12, 25, 21, 13], K2),
-	sublist_to_key([22, 25], [16, 18, 22, 27, 12, 25, 21, 13], K3),
-	sublist_to_key([27, 12], [16, 18, 22, 27, 12, 25, 21, 13], K4).
-% K1 = 1.5833333333333321,
-% K2 = K4, K4 = 0.08333333333333215,
-% K3 = 1.4166666666666679
+test_sublist_to_key(Complement, LA, CA, D, Key) :- 
+    sublist_to_key([16, 13], [16, 18, 22, 27, 12, 25, 21, 13], Complement, LA, CA, D, Key).
+% Complement = [18, 22, 27, 12, 25, 21],
+% LA = 19.25
+% CA = 20.833333333333332,
+% D = -1.5833333333333321,
+% Key = 1.5833333333333321,
+test_sublist_to_key1(Complement, LA, CA, D, Key) :- 
+	sublist_to_key([18, 21], [16, 18, 22, 27, 12, 25, 21, 13], Complement, LA, CA, D, Key).
+% Complement = [16, 22, 27, 12, 25, 13],
+% LA = 19.25
+% CA = 19.166666666666668,
+% D = Key, Key = 0.08333333333333215,
+
 
 % min_by_key(+List, -MinByKey)
 % assuming the list elements are arrays of length 2 containing [Value, Key] it returns the element for the minimal key
 % could be called min_by_second_element
 my_min_by_key([X], _, X).
-my_min_by_key([H|T], List, H) :- my_min_by_key(T, List, TMin), sublist_to_key(TMin, List, TKey), sublist_to_key(H, List, HK), TKey > HK, !.
+my_min_by_key([H|T], List, H) :- 
+    my_min_by_key(T, List, TMin),
+    sublist_to_key(TMin, List, _, _, _, _, TKey),
+    sublist_to_key(H, List, _, _, _, _, HK),
+    TKey > HK, 
+    !.
 my_min_by_key([_|T], List, TMin) :-  my_min_by_key(T, List, TMin), !.
 
 % I needed to add my because min_by_key exists in Prolog, debugging this was not rewarding

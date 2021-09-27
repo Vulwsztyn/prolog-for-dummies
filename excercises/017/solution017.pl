@@ -40,7 +40,7 @@ my_sum([H|T], N) :- my_sum(T, N1), N is N1 + H.
 test_my_sum(X) :- my_sum([12, 25, 5], X).
 % X = 42
 
-to_key(V, K) :-
+to_key(V, Min, Max, Sum, L, L2, Sum2, K) :-
     my_min(V, Min),
     my_max(V, Max),
     my_sum(V, Sum),
@@ -49,17 +49,35 @@ to_key(V, K) :-
     Sum2 is Sum - Min - Max,
     K is Sum2 / L2.
 
-test_to_key(X) :- 
-    to_key([1, 2, 3], X).
-    %to_key([10, 5, 15, 20, 25], Y).
+test_to_key(Min, Max, Sum, L, L2, Sum2, K) :- 
+    to_key([1, 2, 3], Min, Max, Sum, L, L2, Sum2, K).
+% Min = 1,
+% Max = 3,
+% Sum = 6,
+% L = 3, 
+% L2 = 1, 
+% Sum2 = 2,
+% K = 2
+
+
+
+test_to_key1(Min, Max, Sum, L, L2, Sum2, K) :- 
+    to_key([10, 5, 15, 20, 25], Min, Max, Sum, L, L2, Sum2, K).
+% Min = 5,
+% Max = 25,
+% Sum = 75,
+% L = 5, 
+% L2 = 3,
+% Sum2 = 45,
+% K = 15
 
 
 % pivoting(+Pivot: a, +List: [a], -Lesser: [a], -Greater: [a])
 pivoting(_, [], [], []) :- !.
 pivoting(P, [H|T], [H|L], G) :-
     pivoting(P, T, L, G), 
-    to_key(H, HKey),
-    to_key(P, PKey),
+    to_key(H, _, _, _, _, _, _, HKey),
+    to_key(P, _, _, _, _, _, _, PKey),
     HKey =< PKey,
     !.
 pivoting(P, [H|T], L, [H|G]) :- 

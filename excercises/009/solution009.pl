@@ -39,13 +39,25 @@ test_remove_nonmonotonic(X, Y) :-
 % Y = [5, 7]
 
 
-% to_key needs to follow the signature
-% to_key(+Elem: a, -KeyFromElem: b) 
-%type a and type b can be the same
-to_key(X, Y) :- 
+to_key(X, ListOfDigits, MonotinicListOfDigits, Key) :- 
     int_to_list_of_digits(X, ListOfDigits),
     remove_nonmonotonic(ListOfDigits, MonotinicListOfDigits),
-    list_of_digits_to_number(MonotinicListOfDigits, Y).
+    list_of_digits_to_number(MonotinicListOfDigits, Key).
+
+test_to_key(A1, A2, AKey, B1, B2, BKey, C1, C2, CKey) :-
+    to_key(123, A1, A2, AKey),
+    to_key(537, B1, B2, BKey),
+    to_key(153, C1, C2, CKey).
+% A1 = [1, 2, 3],
+% A2 = [1, 2, 3],
+% AKey = 123,
+% B1 = [5, 3, 7],
+% B2 = [5, 7],
+% BKey = 57,
+% C1 = [1, 5, 3],
+% C2 = [1, 5],
+% CKey = 15
+
 
 %%% from bykey/sort_easy%%%
 
@@ -53,8 +65,8 @@ to_key(X, Y) :-
 pivoting(_, [], [], []) :- !.
 pivoting(P, [H|T], [H|L], G) :-
     pivoting(P, T, L, G), 
-    to_key(H, HKey),
-    to_key(P, PKey),
+    to_key(H, _, _, HKey),
+    to_key(P, _, _, PKey),
     HKey =< PKey,
     !.
 pivoting(P, [H|T], L, [H|G]) :- 
