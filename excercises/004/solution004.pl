@@ -57,31 +57,39 @@ test_my_average(A, B, C, D, E) :- my_average([16, 18, 22, 27, 12, 25, 21], A),
 
 
 % number_to_key(+Number, -Key)
-number_to_key(N, K) :- 
+number_to_key(N, R, F, K) :- 
     reverse_range(N, R), 
     my_factors_from_list(N, R, F),
     my_average(F, K).
 
-test_number_to_key(X, Y, Z) :-
-    number_to_key(15, X),
-    number_to_key(22, Y),
-	number_to_key(25, Z).
-
-% X = 1.75,
-% Y = 2,
-% Z = 5
+test_number_to_key(A1, A2, AKey, B1, B2, BKey, C1, C2, CKey) :-
+    number_to_key(15, A1, A2, AKey),
+    number_to_key(22, B1, B2, BKey),
+	number_to_key(25, C1, C2, CKey).
+% A1 = [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+% A2 = [3, 2, 1, 1],
+% AKey = 1.75,
+% B1 = [22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+% B2 = [4, 2, 1, 1],
+% BKey = 2,
+% C1 = [25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+% C2 = [5],
+% CKey = 5
 
 % max_by_key(+List, -ElemThatGivesMaxKey)
 max_by_key([X], X) :- !.
 max_by_key([H|T], H) :- 
     max_by_key(T, TM),
-    number_to_key(TM, KT),
-    number_to_key(H, HK),
+    number_to_key(TM, _, _, KT),
+    number_to_key(H, _, _, HK),
     HK > KT,
     !.
 max_by_key([_|T], TM) :- 
     max_by_key(T, TM).
     
 test_max_by_key(X) :- max_by_key([15, 22, 33], X).
+% X = 33
 
 solution(X, Y) :- max_by_key(X, Y).
+
+test_solution(X) :- solution([15, 22, 25, 33], X).

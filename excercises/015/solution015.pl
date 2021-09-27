@@ -40,21 +40,23 @@ test_remove_gte(X) :- remove_gte(10, [11, 2, 12, 3], X).
 % X = [2, 3]
 
 
-to_key(V, K) :-
+to_key(V, H, F, K) :-
     to_any_radix(16, V, H),
     remove_gte(10, H, F),
     from_any_radix(10, F, K).
 
-test_to_key(X) :- to_key(164, X).
-% X = 4
+test_to_key(H, F, K) :- to_key(164, H, F, K).
+% H = [10, 4],
+% F = [4],
+% K = 4
 
 
 % pivoting(+Pivot: a, +List: [a], -Lesser: [a], -Greater: [a])
 pivoting(_, [], [], []) :- !.
 pivoting(P, [H|T], [H|L], G) :-
     pivoting(P, T, L, G), 
-    to_key(H, HKey),
-    to_key(P, PKey),
+    to_key(H, _, _, HKey),
+    to_key(P, _, _, PKey),
     HKey =< PKey,
     !.
 pivoting(P, [H|T], L, [H|G]) :- 

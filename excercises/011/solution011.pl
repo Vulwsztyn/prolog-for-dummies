@@ -49,15 +49,39 @@ test_my_sum(X) :- my_sum([12, 25, 5], X).
 % X = 42
 
 
-% to_key needs to follow the signature
-% to_key(+Elem: a, -KeyFromElem: b) 
-%type a and type b can be the same
-to_key(X, Y) :- 
+to_key(X, Range, Divisors, R, EvenOrOddDivisors, Key) :- 
     my_range(1, X, Range),
     leave_only_divisors(X, Range, Divisors),
     R is mod(X, 2),
     leave_only_even_or_odd(R, Divisors, EvenOrOddDivisors),
-    my_sum(EvenOrOddDivisors, Y).
+    my_sum(EvenOrOddDivisors, Key).
+
+test_to_key(A1, A2, A3, A4, AKey, B1, B2, B3, B4, BKey, C1, C2, C3, C4, CKey, D1, D2, D3, D4, DKey) :-
+    to_key(20, A1, A2, A3, A4, AKey),
+    to_key(11, B1, B2, B3, B4, BKey),
+    to_key(24, C1, C2, C3, C4, CKey),
+    to_key(15, D1, D2, D3, D4, DKey).
+% A1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+% A2 = [1, 2, 4, 5, 10],
+% A3 = 0, 
+% A4 = [2, 4, 10],
+% AKey = 16,
+% B1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+% B2 = [1], 
+% B3 = 1, BKey = 1, D3 = 1,
+% B4 = [1],
+% BKey = 1, 
+% C1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+% C2 = [1, 2, 3, 4, 6, 8, 12],
+% C3 = 0,
+% C4 = [2, 4, 6, 8, 12],
+% CKey = 32,
+% D1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+% D2 = [1, 3, 5],
+% D3 = 1,
+% D4 = [1, 3, 5],
+% DKey = 9
+
 
 %%% from by_key/sort_easy%%%
 
@@ -65,8 +89,8 @@ to_key(X, Y) :-
 pivoting(_, [], [], []) :- !.
 pivoting(P, [H|T], [H|L], G) :-
     pivoting(P, T, L, G), 
-    to_key(H, HKey),
-    to_key(P, PKey),
+    to_key(H, _, _, _, _, HKey),
+    to_key(P, _, _, _, _, PKey),
     HKey =< PKey,
     !.
 pivoting(P, [H|T], L, [H|G]) :- 

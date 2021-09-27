@@ -85,17 +85,33 @@ test_remove_elements_until_value_in_the_middle(X, Y, Z) :-
     remove_elements_until_value_in_the_middle(2, [1, 2, 3, 4, 5], Y),
     remove_elements_until_value_in_the_middle(2, [11, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5], Z).
 
-to_key(V, K):-
+
+to_key(V, Max, NewV, K):-
     my_max(V, Max),
     remove_elements_until_value_in_the_middle(Max, V, NewV),
     my_average(NewV, K).
+
+test_to_key(A1, A2, AKey, B1, B2, BKey, C1, C2, CKey) :-
+    to_key([1, 2, 3], A1, A2, AKey),
+    to_key([1, 2, 1], B1, B2, BKey),
+    to_key([1, 2, 1, 1, 1], C1, C2, CKey).
+% A1 = 3, 
+% A2 = [3],
+% AKey = 3,
+% B1 = 2, 
+% B2 = [1, 2, 1],
+% BKey = 1.3333333333333333, 
+% C1 = 2,
+% C2 = [1, 2, 1],
+% CKey = 1.3333333333333333
+
 
 % pivoting(+Pivot: a, +List: [a], -Lesser: [a], -Greater: [a])
 pivoting(_, [], [], []) :- !.
 pivoting(P, [H|T], [H|L], G) :-
     pivoting(P, T, L, G), 
-    to_key(H, HKey),
-    to_key(P, PKey),
+    to_key(H, _, _, HKey),
+    to_key(P, _, _, PKey),
     HKey =< PKey,
     !.
 pivoting(P, [H|T], L, [H|G]) :- 

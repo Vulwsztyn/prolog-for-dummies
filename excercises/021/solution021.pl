@@ -128,29 +128,38 @@ test_generate_unique_list(X) :- generate_unique_list([[-3, 1], [3, 7], [6, 10], 
 % X = [-1, 1, 6, 9, 10]
 
 
-to_key(Interval, Intervals, List, Key):-
+to_key(Interval, Intervals, List, U, Inc, NotInc, Key):-
     generate_unique_list(Intervals, List, U),
     leave_only_included(Interval, List, Inc),
     remove_list(U, Inc, NotInc),
     my_length(NotInc, Key),
     !.
 
-test_to_key(A, B, C, D) :- 
-    to_key([-3, 1], [[-3, 1], [3, 7], [6, 10], [8, 11]], [-4, -1, 1, 2, 6, 9, 10, 12], A),
-    to_key([3, 7], [[-3, 1], [3, 7], [6, 10], [8, 11]], [-4, -1, 1, 2, 6, 9, 10, 12], B),
-    to_key([6, 10], [[-3, 1], [3, 7], [6, 10], [8, 11]], [-4, -1, 1, 2, 6, 9, 10, 12], C),
-    to_key([8, 11], [[-3, 1], [3, 7], [6, 10], [8, 11]], [-4, -1, 1, 2, 6, 9, 10, 12], D).
-% A = 3
-% B = 4,
-% C = 2
-% D = 3
+test_to_key(A1, A2, A3, AKey, B1, B2, B3, BKey, C1, C2, C3, CKey, D1, D2, D3, DKey) :- 
+    to_key([-3, 1], [[-3, 1], [3, 7], [6, 10], [8, 11]], [-4, -1, 1, 2, 6, 9, 10, 12], A1, A2, A3, AKey),
+    to_key([3, 7], [[-3, 1], [3, 7], [6, 10], [8, 11]], [-4, -1, 1, 2, 6, 9, 10, 12], B1, B2, B3, BKey),
+    to_key([6, 10], [[-3, 1], [3, 7], [6, 10], [8, 11]], [-4, -1, 1, 2, 6, 9, 10, 12], C1, C2, C3, CKey),
+    to_key([8, 11], [[-3, 1], [3, 7], [6, 10], [8, 11]], [-4, -1, 1, 2, 6, 9, 10, 12], D1, D2, D3, DKey).
+% A1 = B1, B1 = C1, C1 = D1, D1 = [-1, 1, 6, 9, 10],
+% A2 = [-1, 1],
+% A3 = [6, 9, 10],
+% AKey = 3,
+% B2 = [6],
+% B3 = [-1, 1, 9, 10],
+% BKey = 4,
+% C2 = [6, 9, 10]
+% C3 = [-1, 1]
+% CKey = 2,
+% D2 = [9, 10],
+% D3 = [-1, 1, 6],
+% DKey = 3
 
 % min_by_key(+Intervals, +List, +Intervals, -Result)
 min_by_key([X], _, _, X).
 min_by_key([H|T], L, Intervals, H) :- 
     min_by_key(T, L, Intervals, TMin), 
-    to_key(TMin, Intervals, L, TKey), 
-    to_key(H, Intervals, L, HK), 
+    to_key(TMin, Intervals, L, _, _, _, TKey), 
+    to_key(H, Intervals, L, _, _, _, HK), 
     TKey > HK, 
     !.
 min_by_key([_|T], L, Intervals, TMin) :-  

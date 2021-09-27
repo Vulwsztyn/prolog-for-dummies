@@ -100,10 +100,7 @@ my_abs_test(X, Y) :- my_abs(5, X), my_abs(-3, Y).
 % Y = 3
 
 
-% to_key needs to follow the signature
-% to_key(+Elem: a, -KeyFromElem: b) 
-% type a and type b can be the same
-to_key(X, K) :- 
+to_key(X, XB, XBSorted, XBBalanced, NewNum, Diff, K) :- 
     to_binary(X, XB),
     move_ones_to_left(XB, XBSorted),
     append_1_or_0_until_equal_number(XBSorted, XBBalanced),
@@ -111,14 +108,23 @@ to_key(X, K) :-
     Diff is X - NewNum,
     my_abs(Diff, K).
     
+test_to_key(XB, XBSorted, XBBalanced, NewNum, Diff, K) :-
+    to_key(21, XB, XBSorted, XBBalanced, NewNum, Diff, K).
+% XB = [1, 0, 1, 0, 1],
+% XBBalanced = [1, 1, 1, 0, 0, 0],
+% XBSorted = [1, 1, 1, 0, 0],
+% NewNum = 56,
+% Diff = -35,
+% K = 35,
+
 
 % max_by_key(+List, -MaxByKey)
 max_by_key([X], X).
 max_by_key([H|T], H) :- 
-    max_by_key(T, TMax), 
-    to_key(TMax, TKey), 
-    to_key(H, HK), 
-    TKey < HK, 
+    max_by_key(T, TMax),
+    to_key(TMax, _, _, _, _, _, TKey),
+    to_key(H, _, _, _, _, _, HK),
+    TKey < HK,
     !.
 max_by_key([_|T], TMax) :-  
     max_by_key(T, TMax), 
@@ -128,3 +134,6 @@ test_max_by_key(X) :- max_by_key([21, 23, 29, 33], X).
 % X = 23
 
 solve(X, Y) :- max_by_key(X, Y).
+
+solution(X) :- solve([21, 23, 29, 33], X).
+% X = 23

@@ -78,7 +78,7 @@ my_abs_test(X, Y) :- my_abs(5, X), my_abs(-3, Y).
 
 % sublist_to_key(+Sublist, +List, -Key)
 % calculates the differance between averages of the list and the complement of sublist
-sublist_to_key(Sublist, List, Key) :- 
+sublist_to_key(Sublist, List, Complement, LA, CA, D, Key) :- 
     complement(List, Sublist, Complement),
     my_average(List, LA), 
     my_average(Complement, CA), 
@@ -86,17 +86,22 @@ sublist_to_key(Sublist, List, Key) :-
     my_abs(D, Key).
     
 
-test_sublist_to_key(K) :- sublist_to_key([22, 27, 12, 25], [16, 18, 22, 27, 12, 25, 21], K).
-% K = 1.8095238095238102
-% 
+test_sublist_to_key(Complement, LA, CA, D, Key) :- 
+    sublist_to_key([22, 27, 12, 25], [16, 18, 22, 27, 12, 25, 21], Complement, LA, CA, D, Key).
+% Complement = [16, 18, 21],
+% LA = 20.142857142857142,
+% CA = 18.333333333333332,
+% D = Key, Key = 1.8095238095238102
+
+
 % min_by_key(+List, -MinByKey)
 % assuming the list elements are arrays of length 2 containing [Value, Key] it returns the element for the minimal key
 % could be called min_by_second_element
 my_min_by_key([X], _, X).
 my_min_by_key([H|T], List, H) :- 
     my_min_by_key(T, List, TMin), 
-    sublist_to_key(TMin, List, TKey), 
-    sublist_to_key(H, List, HK), 
+    sublist_to_key(TMin, List, _, _, _, _, TKey), 
+    sublist_to_key(H, List, _, _, _, _, HK), 
     TKey > HK, 
     !.
 my_min_by_key([_|T], List, TMin) :-  my_min_by_key(T, List, TMin), !.

@@ -55,17 +55,38 @@ test_find_furthest(X) :- find_furthest(6, [2, 4, 5, 7, 8, 9], X).
 % X = 2
 
 
-to_key(I, L, K) :-
+to_key(I, L, Included, Middle, K) :-
     leave_only_included(I, L, Included),
     my_middle(I, Middle),
     find_furthest(Middle, Included, K).
 
+test_to_key(A1, A2, AKey, B1, B2, BKey, C1, C2, CKey, D1, D2, DKey, E1, E2, EKey) :-
+    to_key([-3, 5], [-4, 1, -2, 4, 5, 7, 9], A1, A2, AKey),
+    to_key([0, 7], [-4, 1, -2, 4, 5, 7, 9], B1, B2, BKey),
+    to_key([2, 10], [-4, 1, -2, 4, 5, 7, 9], C1, C2, CKey),
+    to_key([3, 8], [-4, 1, -2, 4, 5, 7, 9], D1, D2, DKey),
+    to_key([-2, 2], [-4, 1, -2, 4, 5, 7, 9], E1, E2, EKey).
+% A1 = [1, -2, 4, 5],
+% A2 = 1,
+% AKey = 5,
+% B1 = [1, 4, 5, 7],
+% B2 = 3.5,
+% BKey = 7, 
+% C1 = [4, 5, 7, 9],
+% C2 = 6,
+% CKey = 9,
+% D1 = [4, 5, 7],
+% D2 = 5.5,
+% DKey = 7,
+% E1 = [1, -2],
+% E2 = 0,
+% EKey = -2
 
 max_by_key([X], _, X) :- !.
 max_by_key([H|T], L, H) :- 
     max_by_key(T, L, TMax), 
-    to_key(TMax, L, TKey),
-    to_key(H, L, HK),
+    to_key(TMax, L, _, _, TKey),
+    to_key(H, L, _, _, HK),
     TKey =< HK, 
     !.
 max_by_key([_|T], L, TMax) :-  

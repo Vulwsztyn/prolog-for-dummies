@@ -138,7 +138,7 @@ test_my_flatten(A, B, C, D, E) :-
 
 
 % to_key(+Ele: Int, +WholeList: [Int], -Key: Float)
-to_key(E, L, K) :-
+to_key(E, L, LF, ED, LLD, LD, LC, K) :-
     remove_one(L, E, LF),
     int_to_list_of_digits(E, ED),
     map_to_lists_of_digits(LF, LLD),
@@ -147,16 +147,22 @@ to_key(E, L, K) :-
     my_average(LC, K).
 
 
-test_to_key(X) :- to_key(623, [623, 278, 4231, 739, 38], X).
-% X = 1.6666666666666667
+test_to_key(LF, ED, LLD, LD, LC, K) :- 
+    to_key(623, [623, 278, 4231, 739, 38], LF, ED, LLD, LD, LC, K).
+% LF = [278, 4231, 739, 38],
+% ED = [6, 2, 3],
+% LLD = [[2, 7, 8], [4, 2, 3, 1], [7, 3, 9], [3, 8]]
+% LD = [2, 7, 8, 4, 2, 3, 1, 7, 3, 9, 3, 8],
+% LC = [0, 2, 3],
+% K = 1.6666666666666667,
 
 
 % min_by_key(+List, -MinByKey)
 min_by_key([X], _, X).
 min_by_key([H|T], L, H) :- 
     min_by_key(T, L, TMin), 
-    to_key(TMin, L, TKey), 
-    to_key(H, L, HK), 
+    to_key(TMin, L, _, _, _, _, _, TKey), 
+    to_key(H, L, _, _, _, _, _, HK), 
     TKey > HK, 
     !.
 min_by_key([_|T], L, TMin) :-  

@@ -74,7 +74,7 @@ my_abs_test(X, Y) :- my_abs(5, X), my_abs(-3, Y).
 % X = 5,
 % Y = 3
 
-to_key(I, L, K) :-
+to_key(I, L, NumsInside, AllNums, Intervals, M, Including, W, W2, D, K) :-
     leave_only_included(I, L, NumsInside),
     merge_interval_with_included(I, NumsInside, AllNums),
     list_to_intervals(AllNums, Intervals),
@@ -85,19 +85,36 @@ to_key(I, L, K) :-
     D is W - W2,
     my_abs(D, K).
 
-test_to_key(X, Y) :- 
-    to_key([-3, 5], [-4, -1, 2, 4, 5, 7, 8, 9], X),
-    to_key([2, 10], [-4, -1, 2, 4, 5, 7, 8, 9], Y).
-% X = 5,
-% Y = 6
+test_to_key(NumsInside, AllNums, Intervals, M, Including, W, W2, D, K) :- 
+    to_key([-3, 5], [-4, -1, 2, 4, 5, 7, 8, 9], NumsInside, AllNums, Intervals, M, Including, W, W2, D, K).
+% NumsInside = [-1, 2, 4],
+% AllNums = [-3, -1, 2, 4, 5],
+% Intervals = [[-3, -1], [-1, 2], [2, 4], [4, 5]],
+% M = 1,
+% Including = [-1, 2],
+% W = 8,
+% W2 = 3,
+% D = 5, 
+% K = 5,
+test_to_key1(NumsInside, AllNums, Intervals, M, Including, W, W2, D, K) :- 
+    to_key([2, 10], [-4, -1, 2, 4, 5, 7, 8, 9], NumsInside, AllNums, Intervals, M, Including, W, W2, D, K).
+% NumsInside = [4, 5, 7, 8, 9],
+% AllNums = [2, 4, 5, 7, 8, 9, 10],
+% Intervals = [[2, 4], [4, 5], [5, 7], [7, 8], [8, 9], [9, 10]],
+% M = 6,
+% Including = [5, 7],
+% W = 8,
+% W2 = 2,
+% D = K,
+% K = M
     
-    
+
 % max_by_key(+List, -MaxByKey)
 max_by_key([X], _, X).
 max_by_key([H|T], L, H) :- 
     max_by_key(T, L, TMax), 
-    to_key(TMax, L, TKey), 
-    to_key(H, L, HK), 
+    to_key(TMax, L, _, _, _, _, _, _, _, _, TKey), 
+    to_key(H, L, _, _, _, _, _, _, _, _, HK), 
     TKey < HK, 
     !.
 max_by_key([_|T], L, TMax) :-  
@@ -108,3 +125,6 @@ test_max_by_key(X) :- max_by_key([[-3, 5], [0, 7], [2, 10], [3, 8], [-2, 2]], [-
 % X = [2, 10]
 
 solve(X, Y, Z) :- max_by_key(X, Y, Z).
+
+solution(X) :- solve([[-3, 5], [0, 7], [2, 10], [3, 8], [-2, 2]], [-4, -1, 2, 4, 5, 7, 8, 9], X).
+% X = [2, 10]
