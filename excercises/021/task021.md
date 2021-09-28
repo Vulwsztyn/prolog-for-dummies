@@ -18,3 +18,4 @@ Algorithm:
   - `[6, 10] -> [-1, 1]`
   - `[8, 11] -> [-1, 1, 6]`
 - get length of each list from the previous step thus creating key for each interval
+- find minimum by key
