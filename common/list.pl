@@ -88,3 +88,14 @@ my_reverse([H|T], L) :- my_reverse(T, L1), append(L1, [H], L).
 
 test_reverse(X) :- my_reverse([1, 2, 3, 4], X).
 % X = [4, 3, 2, 1]
+
+% my_reverse(+Length: number, +List: []a, -TakenList: []a).
+my_take(0, _, []) :- !.
+my_take(_, [], []) :- !.
+my_take(N, [H|T], [H|R]) :- N > 0, N1 is N - 1, my_take(N1, T, R).
+
+test_my_take(X, Y) :- 
+    my_take(3, [1, 2, 3, 4, 5, 6, 7, 8], X),
+    my_take(20, [1, 2, 3, 4, 5, 6, 7, 8], Y).
+% X = [1, 2, 3],
+% Y = [1, 2, 3, 4, 5, 6, 7, 8].
